@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <parent>
         <artifactId>HotswapAgentParent</artifactId>
         <groupId>org.hotswap.agent</groupId>
@@ -30,6 +31,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.8</version>
                 <executions>
                     <execution>
                         <goals>
@@ -89,7 +91,9 @@
                     </dependency>
                 </dependencies>
                 <configuration>
-                    <jvmArgs>-XXaltjvm=${dcevm} -javaagent:${org.hotswap.agent:HotswapAgent:jar}</jvmArgs>
+                    <jvmArgs>-XXaltjvm=${dcevm} -javaagent:${org.hotswap.agent:HotswapAgent:jar}
+                        -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=${debug.port}
+                    </jvmArgs>
                     <stopKey>stop</stopKey>
                     <stopPort>9092</stopPort>
                     <systemProperties>
@@ -194,6 +198,7 @@
     </dependencies>
     <properties>
         <dcevm>dcevm</dcevm>
+        <debug.port>8787</debug.port>
         <org.hibernateframework.version>4.2.0.Final</org.hibernateframework.version>
         <seam.version>2.3.0.Final</seam.version>
     </properties>
